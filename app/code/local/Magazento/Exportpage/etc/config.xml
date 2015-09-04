@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <modules>
+        <Magazento_Exportpage>
+            <version>2.0.2</version>
+        </Magazento_Exportpage>
+    </modules>
+    
+    <global>
+        <rewrite>
+            <mage_adminhtml_system_variable>
+                <from><![CDATA[#^/exportpage/system_variable#]]>
+                </from>
+                <to>/admin/system_variable</to>
+            </mage_adminhtml_system_variable>
+        </rewrite>
+        <models>
+            <exportpage>
+                <class>Magazento_Exportpage_Model</class>
+                <resourceModel>exportpage_mysql4</resourceModel>
+            </exportpage>
+            <exportpage_mysql4>
+                <class>Magazento_Exportpage_Model_Mysql4</class>
+                <entities>
+                    <item>
+                        <table>magazento_exportpage_item</table>
+                    </item>
+                    <item_related>
+                        <table>magazento_exportpage_item_related</table>
+                    </item_related>
+                    <item_store>
+                        <table>magazento_exportpage_item_store</table>
+                    </item_store>
+                </entities>
+            </exportpage_mysql4>
+        </models>
+        <resources>
+            <exportpage_setup>
+                <setup>
+                    <module>Magazento_Exportpage</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </exportpage_setup>
+            <exportpage_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </exportpage_write>
+            <exportpage_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </exportpage_read>
+        </resources>
+        <blocks>
+            <exportpage>
+                <class>Magazento_Exportpage_Block</class>
+            </exportpage>
+        </blocks>
+        <helpers>
+            <exportpage>
+                <class>Magazento_Exportpage_Helper</class>
+            </exportpage>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <exportpage>
+                <use>admin</use>
+                <args>
+                    <module>Magazento_Exportpage</module>
+                    <frontName>exportpage</frontName>
+                </args>
+            </exportpage>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <exportpage>
+                    <file>magazento_exportpage.xml</file>
+                </exportpage>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <exportpage translate="title">
+                            <title>Page Import/Export</title>
+                            <children>
+                                <item translate="title">
+                                    <title>Export</title>
+                                </item>
+                                <item translate="title">
+                                    <title>Import</title>
+                                </item>
+                            </children>
+                            <sort_order>65</sort_order>
+                        </exportpage>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <exportpage>
+                                            <title>exportpage</title>
+                                            <sort_order>101</sort_order>
+                                        </exportpage>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <menu>
+            <system translate="title" module="exportpage">
+                <title>System</title>
+                <children>
+                    <exportpage translate="title" module="exportpage">
+                        <title>Import/Export Page</title>
+                        <sort_order>0</sort_order>
+                        <children>
+                            <item translate="title" module="exportpage">
+                                <title>Export</title>
+                                <action>exportpage/admin_item/</action>
+                                <resource>exportpage/admin/item</resource>
+                            </item>
+                            <import translate="title" module="exportpage">
+                                <title>Import</title>
+                                <action>exportpage/admin_import/</action>
+                                <resource>exportpage/admin/import</resource>
+                            </import>
+                        </children>                        
+                    </exportpage>
+                </children>
+            </system>
+        </menu>
+    </adminhtml>
+</config>
